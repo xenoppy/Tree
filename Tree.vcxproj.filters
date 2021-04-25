@@ -18,9 +18,27 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="put_in.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="node.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="doctest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="put_in.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
