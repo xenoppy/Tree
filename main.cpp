@@ -1,5 +1,6 @@
 #include<iostream>
 #include"node.h"
+#include"algorithm.h"
 #include"put_in.h"
 #include"func.h"
 using namespace std;
@@ -13,6 +14,7 @@ int main() {
 			win(1);
 			break;
 		}
+		cout << endl << evaluate(board,1) << endl;
 		User2In(board);
 		printBoard(board);
 		if (judge(board, 2)) {
