@@ -2,3 +2,4 @@
 bool judge(int** board,int user);
 void win(int user);
 void printBoard(int** board);
+int** copy(int** from);

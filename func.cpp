@@ -69,13 +69,22 @@ void printBoard(int** board) {
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			switch (board[i][j]) {
-			case 0:std::cout << "¡õ"; break;
+			case 2:std::cout << "¡õ"; break;
 			case 1:std::cout << "¡ñ"; break;
-			case 2:std::cout << "¡ð"; break;
+			case 0:std::cout << "¡ð"; break;
 
 			}
 		}
 		std::cout << std::endl;
 	}
 	system("pause");
+}
+int** copy(int** from) {
+	int** goal = InitializeBoard();
+	for (int i = 0; i < BOARD_LENTH; i++) {
+		for (int j = 0; j < BOARD_LENTH; j++) {
+			goal[i][j] = from[i][j];
+		}
+	}
+	return goal;
 }

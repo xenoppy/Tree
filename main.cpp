@@ -14,7 +14,7 @@ int main() {
 			win(1);
 			break;
 		}
-		cout << endl << evaluate(board,1) << endl;
+		cout << endl << evaluate(board,0) << endl;
 		User2In(board);
 		printBoard(board);
 		if (judge(board, 2)) {

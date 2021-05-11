@@ -149,6 +149,7 @@
     <ClInclude Include="algorithm.h" />
     <ClInclude Include="doctest.h" />
     <ClInclude Include="func.h" />
+    <ClInclude Include="MCTS.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="put_in.h" />
   </ItemGroup>

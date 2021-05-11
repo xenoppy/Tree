@@ -1,8 +1,8 @@
 #pragma once
 #define BOARD_LENTH 17
-#define EMPTY 0
+#define EMPTY 2
 #define BLACK 1
-#define WHITE 2
+#define WHITE 0
 
 #include<vector>
 class Node {
