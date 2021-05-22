@@ -1,64 +1,94 @@
 #include"node.h"
 #include"func.h"
 #include<iostream>
-bool judge(int** board,int user) {
+int max(int x, int y) {
+	if (x > y)return x;
+	else return y;
+}
+int min(int x, int y) {
+	if (x < y)return x;
+	else return y;
+}
+bool judge(int** board,int user,int x,int y) {
+	int sum1, sum2, score = 0, a[5] = { 0,0,0,0,0 };
 	//横向检查
-	for (int i = 0; i < BOARD_LENTH; i++) {
-		int j = 0, sum = 0;
-		while (j < BOARD_LENTH) {
-			if (board[i][j] == user) {
-				sum = sum + 1;
-			}
-			else {
-				sum = 0;
-			}
-			if (sum == 5)return true;
-			j++;
+	sum1 = 0;
+	sum2 = 0;
+	for (int i = x; i > max(0, x - 5); i--) {
+		if (board[i][y] == user) {
+			sum1++;
 		}
+		else break;
 	}
+	for (int i = x; i < min(BOARD_LENTH, x + 5); i++) {
+		if (board[i][y] == user) {
+			sum2++;
+		}
+		else break;
+	}
+	if ((sum1 + sum2) > 5) return true;
 	//纵向检查
-	for (int i = 0; i < BOARD_LENTH; i++) {
-		int j = 0, sum = 0;
-		while (j < BOARD_LENTH) {
-			if (board[j][i] == user) {
-				sum = sum + 1;
-			}
-			else {
-				sum = 0;
-			}
-			if (sum == 5)return true;
-			j++;
+	sum1 = 0;
+	sum2 = 0;
+	for (int i = y; i > max(0, y - 5); i--) {
+		if (board[x][i] == user) {
+			sum1++;
 		}
+		else break;
 	}
-	//斜方向检查（右下
-	for (int i = 0; i <BOARD_LENTH * 2-1; i++) {
-		int j = 0, sum = 0;
-		while (j < BOARD_LENTH&&i-j<BOARD_LENTH) {
-			if (board[j][i - j] == user) {
-				sum = sum + 1;
-			}
-			else {
-				sum = 0;
-			}
-			if (sum == 5)return true;
-			j++;
+	for (int i = y; i < min(BOARD_LENTH, y + 5); i++) {
+		if (board[x][i] == user) {
+			sum2++;
 		}
+		else break;
 	}
-	//斜方向检查（右上
-	for (int i = 1-BOARD_LENTH; i <= BOARD_LENTH-1; i++) {
-		int j = 0, sum = 0;
-		while (j < BOARD_LENTH&&j+i<BOARD_LENTH) {
-			if (board[j][i+j] == user) {
-				sum = sum + 1;
+	if ((sum1 + sum2) > 5) return true;
+	//左上右下检查
+	sum1 = 0;
+	sum2 = 0;
+	for (int i = 0; i > -5; i--) {
+		if ((x + i) >= 0 && (y + i) >= 0) {
+			if (board[x + i][y + i] == user) {
+				sum1++;
 			}
-			else {
-				sum = 0;
-			}
-			if (sum == 5)return true;
-			j++;
+			else break;
 		}
-		return false;
+		else break;
 	}
+	for (int i = 0; i < 5; i++) {
+		if ((x + i) < BOARD_LENTH && (y + i) < BOARD_LENTH) {
+			if (board[x + i][y + i] == user) {
+				sum2++;
+			}
+			else break;
+		}
+		else break;
+	}
+	if ((sum1 + sum2) > 5) return true;
+	//右上左下检查
+	sum1 = 0;
+	sum2 = 0;
+	for (int i = 0; i > -5; i--) {
+		if ((x + i) >= 0 && (y - i) >= 0) {
+			if (board[x + i][y - i] == user) {
+				sum1++;
+			}
+			else break;
+		}
+		else break;
+	}
+	for (int i = 0; i < 5; i++) {
+		if ((x + i) < BOARD_LENTH && (y - i) < BOARD_LENTH) {
+			if (board[x + i][y - i] == user) {
+				sum2++;
+			}
+			else break;
+		}
+		else break;
+	}
+	if ((sum1 + sum2) > 5) return true;
+	return false;
+	
 }
 void win(int user) {
 	std::cout << "User " << user << " win!!!" << std::endl << "Congratuations!!!" << std::endl;

@@ -7,20 +7,14 @@ using namespace std;
 int main() {
 	int** board = InitializeBoard();//≥ı ºªØ∆Â≈Ã
 	printBoard(board);
+	int temp=0;
 	while (1) {
-		User1In(board);
-		printBoard(board);
-		if (judge(board, 1)){ 
-			win(1);
-			break;
-		}
-		cout << endl << evaluate(board,0) << endl;
-		User2In(board);
-		printBoard(board);
-		if (judge(board, 2)) {
-			win(2);
-			break;
-		}
+		User1In(board,&temp);
+		
+		cout << endl << temp << endl;
+		User2In(board, &temp);
+		
+		cout << endl << temp << endl;
 	}
 	return 0;
 }
