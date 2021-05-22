@@ -10,10 +10,12 @@ int main() {
 	int temp=0;
 	while (1) {
 		User1In(board,&temp);
-		
+
+		printBoard(board);
 		cout << endl << temp << endl;
 		User2In(board, &temp);
-		
+
+		printBoard(board);
 		cout << endl << temp << endl;
 	}
 	return 0;

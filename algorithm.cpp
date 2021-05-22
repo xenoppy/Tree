@@ -7,7 +7,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	//横向检查
 	sum1 = 0;
 	sum2 = 0;
-	for (int i = x; i >max(0,x-5) ; i--) {
+	for (int i = x; i >max(-1,x-5) ; i--) {
 		if (board[i][y] == user) {
 			sum1++;
 		}
@@ -23,7 +23,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	//纵向检查
 	sum1 = 0;
 	sum2 = 0;
-	for (int i = y; i > max(0, y - 5); i--) {
+	for (int i = y; i > max(-1, y - 5); i--) {
 		if (board[x][i] == user) {
 			sum1++;
 		}
@@ -134,10 +134,9 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	* temp = (*temp) + (user*2-1)*score;
 }
 int search(int ** Board, int user, int times,int* temp) {
-	int max_score = -2147483647;
-	int** preBoard = InitializeBoard();
-	int** finBoard = InitializeBoard();
-	int t=*temp;
+	int max_score = -2147483647*(1- user * 2 ),save;
+	int** preBoard;
+	int** finBoard=copy(Board);
 		
 	if (times == 0) {
 		//找到该层的极值
@@ -145,16 +144,18 @@ int search(int ** Board, int user, int times,int* temp) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
 				preBoard = copy(Board);
 				if (preBoard[i][j] == EMPTY) {
+					int t = *temp;
 					preBoard[i][j] = user;
 					evaluate(preBoard, user, i, j, &t);
-					if (t > max_score) {
+					if (t*(user*2-1) > max_score) {
 						max_score = t;
-						finBoard = copy(preBoard);
 					}
+				freeBoard(preBoard);
 				}
 			}
 		}
-		return (user * 2 - 1) * max_score;
+		freeBoard(finBoard);
+		return max_score;
 	}
 	else {
 		//找到该层的极值
@@ -162,16 +163,20 @@ int search(int ** Board, int user, int times,int* temp) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
 				preBoard = copy(Board);
 				if (preBoard[i][j] == EMPTY) {
+					int t = *temp;
 					preBoard[i][j] = user;
-					evaluate(preBoard, user, i, j, temp);
-					if (t > max_score) {
-						max_score = t;
+					save = search(preBoard, 1-user, times - 1, &t);
+					if (save*(user*2-1) > max_score) {
+						max_score = save;
 						finBoard = copy(preBoard);
 					}
 				}
+				freeBoard(preBoard);
 			}
 		}
-		return search(finBoard, 1 - user, times - 1,&max_score);
+//		printBoard(finBoard);
+		freeBoard(finBoard);
+		return save;
 	}
 	return 0;
 }
