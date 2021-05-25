@@ -13,12 +13,12 @@ int** InitializeBoard() {
 	}
 	return a;
 }
-void freeBoard(int** a) {
-	for (int i = 0; i < BOARD_LENTH; i++) {
-		free(a[i]);
-	}
-	free(a);
-}
+//void freeBoard(int** a) {
+//	for (int i = 0; i < BOARD_LENTH; i++) {
+//		free(a[i]);
+//	}
+//	free(a);
+//}
 void Node::createchild() {
 	Node* p =new Node();
 	p->n = 0;

@@ -19,28 +19,39 @@ void GetFromKey(int** board,int user,int *temp){
 		board[x-1][y-1] = user;
 	}
 	evaluate(board, user, x-1, y-1, temp);
-	printBoard(board);
 	if (judge(board, user,x-1,y-1)) {
 		win(0);
 	}
 
 }
 void GetFromAI(int** Board, int user,int* temp) {
-	int max_score = -2139062143 * (user * 2 - 1),x,y,t=*temp;
+	int max_score = -2139062143,x=0,y=0,t=*temp;
+	//int saveBoard[17][17];
+	////±£´æ
+	//for (int i = 0; i < BOARD_LENTH; i++) {
+	//	for (int j = 0; j < BOARD_LENTH; j++) {
+	//		saveBoard[i][j] = Board[i][j];
+	//	}
+	//}
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (Board[i][j] == EMPTY) {
-				int** preBoard = copy(Board);
-				preBoard[i][j] = user;
-				int save =  search(preBoard, 1-user, DEPTH - 1, &t);
+				Board[i][j] = user;
+				int save =  search(Board, 1-user, DEPTH - 1, &t);
 				if ((user * 2 - 1) *save > max_score) {
 					x = i;
 					y = j;
-					max_score = save;
+					max_score = save;					
 				}
+				//¸´Ô­
+				Board[i][j] = EMPTY;
 			}
 		}
 	}
+	
 	Board[x][y] = user;
-	evaluate(Board, user, x, y, temp);
+	evaluate(Board, user, x, y, temp); 
+	if (judge(Board, user, x, y)) {
+		win(0);
+	}
 }

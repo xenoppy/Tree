@@ -1,5 +1,5 @@
 #pragma once
-#define BOARD_LENTH 10
+#define BOARD_LENTH 15
 #define EMPTY 2
 #define BLACK 1
 #define WHITE 0
@@ -17,4 +17,4 @@ public:
 };
 void InitializeTree();
 int** InitializeBoard();
-void freeBoard(int **a);
+/*void freeBoard(int **a);*/

@@ -16,13 +16,13 @@ bool judge(int** board,int user,int x,int y) {
 	sum2 = 0;
 	for (int i = x; i > max(0, x - 5); i--) {
 		if (board[i][y] == user) {
-			sum1++;
+			sum1=sum1+1;
 		}
 		else break;
 	}
 	for (int i = x; i < min(BOARD_LENTH, x + 5); i++) {
 		if (board[i][y] == user) {
-			sum2++;
+			sum2=sum2 + 1;
 		}
 		else break;
 	}
@@ -30,13 +30,13 @@ bool judge(int** board,int user,int x,int y) {
 	//×ÝÏò¼ì²é
 	sum1 = 0;
 	sum2 = 0;
-	for (int i = y; i > max(0, y - 5); i--) {
+	for (int i = y; i > max(-1, y - 5); i--) {
 		if (board[x][i] == user) {
 			sum1++;
 		}
 		else break;
 	}
-	for (int i = y; i < min(BOARD_LENTH, y + 5); i++) {
+	for (int i = y; i < min(BOARD_LENTH+1, y + 5); i++) {
 		if (board[x][i] == user) {
 			sum2++;
 		}
@@ -92,6 +92,7 @@ bool judge(int** board,int user,int x,int y) {
 }
 void win(int user) {
 	std::cout << "User " << user << " win!!!" << std::endl << "Congratuations!!!" << std::endl;
+	system("pause");
 }
 
 void printBoard(int** board) {
@@ -109,12 +110,12 @@ void printBoard(int** board) {
 	}
 	system("pause");
 }
-int** copy(int** from) {
-	int** goal = InitializeBoard();
-	for (int i = 0; i < BOARD_LENTH; i++) {
-		for (int j = 0; j < BOARD_LENTH; j++) {
-			goal[i][j] = from[i][j];
-		}
-	}
-	return goal;
-}
+//int** copy(int** from) {
+//	int** goal = InitializeBoard();
+//	for (int i = 0; i < BOARD_LENTH; i++) {
+//		for (int j = 0; j < BOARD_LENTH; j++) {
+//			goal[i][j] = from[i][j];
+//		}
+//	}
+//	return goal;
+//}
