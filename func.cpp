@@ -10,84 +10,86 @@ int min(int x, int y) {
 	else return y;
 }
 bool judge(int** board,int user,int x,int y) {
-	int sum1, sum2, score = 0, a[5] = { 0,0,0,0,0 };
-	//横向检查
-	sum1 = 0;
-	sum2 = 0;
-	for (int i = x; i > max(0, x - 5); i--) {
-		if (board[i][y] == user) {
-			sum1=sum1+1;
-		}
-		else break;
-	}
-	for (int i = x; i < min(BOARD_LENTH, x + 5); i++) {
-		if (board[i][y] == user) {
-			sum2=sum2 + 1;
-		}
-		else break;
-	}
-	if ((sum1 + sum2) > 5) return true;
-	//纵向检查
-	sum1 = 0;
-	sum2 = 0;
-	for (int i = y; i > max(-1, y - 5); i--) {
-		if (board[x][i] == user) {
-			sum1++;
-		}
-		else break;
-	}
-	for (int i = y; i < min(BOARD_LENTH+1, y + 5); i++) {
-		if (board[x][i] == user) {
-			sum2++;
-		}
-		else break;
-	}
-	if ((sum1 + sum2) > 5) return true;
-	//左上右下检查
-	sum1 = 0;
-	sum2 = 0;
-	for (int i = 0; i > -5; i--) {
-		if ((x + i) >= 0 && (y + i) >= 0) {
-			if (board[x + i][y + i] == user) {
-				sum1++;
-			}
-			else break;
-		}
-		else break;
-	}
-	for (int i = 0; i < 5; i++) {
-		if ((x + i) < BOARD_LENTH && (y + i) < BOARD_LENTH) {
-			if (board[x + i][y + i] == user) {
-				sum2++;
-			}
-			else break;
-		}
-		else break;
-	}
-	if ((sum1 + sum2) > 5) return true;
-	//右上左下检查
-	sum1 = 0;
-	sum2 = 0;
-	for (int i = 0; i > -5; i--) {
-		if ((x + i) >= 0 && (y - i) >= 0) {
-			if (board[x + i][y - i] == user) {
-				sum1++;
-			}
-			else break;
-		}
-		else break;
-	}
-	for (int i = 0; i < 5; i++) {
-		if ((x + i) < BOARD_LENTH && (y - i) < BOARD_LENTH) {
-			if (board[x + i][y - i] == user) {
-				sum2++;
-			}
-			else break;
-		}
-		else break;
-	}
-	if ((sum1 + sum2) > 5) return true;
-	return false;
+
+	return true;
+	//int sum1, sum2, score = 0, a[5] = { 0,0,0,0,0 };
+	////横向检查
+	//sum1 = 0;
+	//sum2 = 0;
+	//for (int i = x; i > max(0, x - 5); i--) {
+	//	if (board[i][y] == user) {
+	//		sum1=sum1+1;
+	//	}
+	//	else break;
+	//}
+	//for (int i = x; i < min(BOARD_LENTH, x + 5); i++) {
+	//	if (board[i][y] == user) {
+	//		sum2=sum2 + 1;
+	//	}
+	//	else break;
+	//}
+	//if ((sum1 + sum2) > 5) return true;
+	////纵向检查
+	//sum1 = 0;
+	//sum2 = 0;
+	//for (int i = y; i > max(-1, y - 5); i--) {
+	//	if (board[x][i] == user) {
+	//		sum1++;
+	//	}
+	//	else break;
+	//}
+	//for (int i = y; i < min(BOARD_LENTH+1, y + 5); i++) {
+	//	if (board[x][i] == user) {
+	//		sum2++;
+	//	}
+	//	else break;
+	//}
+	//if ((sum1 + sum2) > 5) return true;
+	////左上右下检查
+	//sum1 = 0;
+	//sum2 = 0;
+	//for (int i = 0; i > -5; i--) {
+	//	if ((x + i) >= 0 && (y + i) >= 0) {
+	//		if (board[x + i][y + i] == user) {
+	//			sum1++;
+	//		}
+	//		else break;
+	//	}
+	//	else break;
+	//}
+	//for (int i = 0; i < 5; i++) {
+	//	if ((x + i) < BOARD_LENTH && (y + i) < BOARD_LENTH) {
+	//		if (board[x + i][y + i] == user) {
+	//			sum2++;
+	//		}
+	//		else break;
+	//	}
+	//	else break;
+	//}
+	//if ((sum1 + sum2) > 5) return true;
+	////右上左下检查
+	//sum1 = 0;
+	//sum2 = 0;
+	//for (int i = 0; i > -5; i--) {
+	//	if ((x + i) >= 0 && (y - i) >= 0) {
+	//		if (board[x + i][y - i] == user) {
+	//			sum1++;
+	//		}
+	//		else break;
+	//	}
+	//	else break;
+	//}
+	//for (int i = 0; i < 5; i++) {
+	//	if ((x + i) < BOARD_LENTH && (y - i) < BOARD_LENTH) {
+	//		if (board[x + i][y - i] == user) {
+	//			sum2++;
+	//		}
+	//		else break;
+	//	}
+	//	else break;
+	//}
+	//if ((sum1 + sum2) > 5) return true;
+	//return false;
 	
 }
 void win(int user) {
@@ -108,7 +110,6 @@ void printBoard(int** board) {
 		}
 		std::cout << std::endl;
 	}
-	system("pause");
 }
 //int** copy(int** from) {
 //	int** goal = InitializeBoard();

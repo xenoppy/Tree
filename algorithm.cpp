@@ -3,7 +3,7 @@
 #include"func.h"
 #include"node.h"
 void evaluate(int** board,int user,int x,int y,int* temp) {
-	int sum1,sum2,score=0,a[6] = { 0,10,100,1000,10000,100000 };
+	int sum1,sum2,minus1,minus2,score=0,a[6] = { 1,10,100,1000,1000000,10000000000000 };
 	////横向检查
 	//sum1 = 0;
 	//sum2 = 0;
@@ -211,80 +211,397 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	//横向检查
 	
 	//有问题：关于连成五子的情况这里判断会过于麻烦了
-	if (judge(board, 0, x, y)) {
+	/*if (judge(board, 0, x, y)) {
 		*temp = -1000000000;
 		return;
 	}
 	if (judge(board, 1, x, y)) {
 		*temp = 1000000000;
 	return;
-	}
+	}*/
 	//横向
 	for (int i = 0; i < BOARD_LENTH; i++) {
-
-		sum1 = -1;
-		sum2 = -1;
+		minus1 = 1;
+		minus2 = 1;
+		sum1 = 0;
+		sum2 = 0;
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (board[i][j] == EMPTY) {
-				if (sum1 > -1)score = score - a[sum1];
-				if (sum2 > -1)score = score + a[sum2];
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
 				sum1 = 0;
 				sum2 = 0;
+				minus1 = 0;
+				minus2 = 0;
 			}
 			else if (board[i][j] == 0) {
 				sum1 = sum1 + 1;
-				sum2 = sum2 - 1;
-				if (sum2 > -1)score = score + a[sum2];
-				sum2 = -1;
+				minus2 = minus2 + 1;
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+				
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum2 = 0;
+				minus2 = 1;
 			}
 			else {
-				sum1 = sum1 - 1;
+				minus1 = minus1 + 1;
 				sum2 = sum2 + 1;
-				if (sum1 > -1)score = score - a[sum1];
-				sum1 = -1;
-			}
-			if (j == BOARD_LENTH - 1) {
-				sum1 = sum1 - 1;
-				sum2 = sum2 - 1;
-				if (sum1 > -1)score = score - a[sum1];
-				if (sum2 > -1)score = score + a[sum2];
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				minus1 = 1;
 			}
 		}
+		minus1 = minus1 + 1;
+		minus2 = minus2 + 1;
+		if (sum1 == 5) {
+			*temp = -10000000000000;
+			return;
+		}
+		else if (sum2 == 5) {
+			*temp = 10000000000000;
+			return;
+		}
+		else {
+			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+		}
 	}
+	
 	//纵向
 	for (int j = 0; j < BOARD_LENTH; j++) {
-
-		sum1 = -1;
-		sum2 = -1;
+		minus1 = 1;
+		minus2 = 1;
+		sum1 = 0;
+		sum2 = 0;
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			if (board[i][j] == EMPTY) {
-				if (sum1 > -1)score = score - a[sum1];
-				if (sum2 > -1)score = score + a[sum2];
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
 				sum1 = 0;
 				sum2 = 0;
+				minus1 = 0;
+				minus2 = 0;
 			}
 			else if (board[i][j] == 0) {
 				sum1 = sum1 + 1;
-				sum2 = sum2 - 1;
-				if (sum2 > -1)score = score + a[sum2];
-				sum2 = -1;
+				minus2 = minus2 + 1;
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum2 = 0;
+				minus2 = 1;
 			}
 			else {
-				sum1 = sum1 - 1;
+				minus1 = minus1 + 1;
 				sum2 = sum2 + 1;
-				if (sum1 > -1)score = score - a[sum1];
-				sum1 = -1;
-			}
-			if (j == BOARD_LENTH - 1) {
-				sum1 = sum1 - 1;
-				sum2 = sum2 - 1;
-				if (sum1 > -1)score = score - a[sum1];
-				if (sum2 > -1)score = score + a[sum2];
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				minus1 = 1;
 			}
 		}
+		minus1 = minus1 + 1;
+		minus2 = minus2 + 1;
+		if (sum1 == 5) {
+			*temp = -10000000000000;
+			return;
+		}
+		else if (sum2 == 5) {
+			*temp = 10000000000000;
+			return;
+		}
+		else {
+			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+		}
 	}
-	//
+	
+	//左下右上
+	for (int i = 0; i < BOARD_LENTH * 2 - 1; i++) {
+		int j = 0;
+		minus1 = 1;
+		minus2 = 1;
+		sum1 = 0;
+		sum2 = 0;
+
+		while (j >= 0 && i - j >= 0 && j < BOARD_LENTH && i - j < BOARD_LENTH) {
+			if (board[j][i - j] == EMPTY) {
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				sum2 = 0;
+				minus1 = 0;
+				minus2 = 0;
+			}
+			else if (board[j][i - j] == 0) {
+				sum1 = sum1 + 1;
+				minus2 = minus2 + 1;
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum2 = 0;
+				minus2 = 1;
+			}
+			else {
+				minus1 = minus1 + 1;
+				sum2 = sum2 + 1;
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				minus1 = 1;
+			}
+			j++;
+		}
+		//检查最后边界
+		minus1 = minus1 + 1;
+		minus2 = minus2 + 1;
+		if (sum1 == 5) {
+			*temp = -10000000000000;
+			return;
+		}
+		else if (sum2 == 5) {
+			*temp = 10000000000000;
+			return;
+		}
+		else {
+			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+		}
+	}
+
+
+	//左上右下
+	for (int i = 1 - BOARD_LENTH; i <= BOARD_LENTH - 1; i++) {
+		int j = 0;
+		minus1 = 1;
+		minus2 = 1;
+		sum1 = 0;
+		sum2 = 0;
+
+		while (i + j >= 0 && j < BOARD_LENTH && j + i < BOARD_LENTH) {
+			if (board[j][i + j] == EMPTY) {
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				sum2 = 0;
+				minus1 = 0;
+				minus2 = 0;
+			}
+			else if (board[j][i + j] == 0) {
+				sum1 = sum1 + 1;
+				minus2 = minus2 + 1;
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum2 = 0;
+				minus2 = 1;
+			}
+			else {
+				minus1 = minus1 + 1;
+				sum2 = sum2 + 1;
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				//检查是否胜利
+				if (sum1 == 5) {
+					*temp = -10000000000000;
+					return;
+				}
+				else if (sum2 == 5) {
+					*temp = 10000000000000;
+					return;
+				}
+				sum1 = 0;
+				minus1 = 1;
+			}
+			j++;
+		}
+		//检查最后边界
+		minus1 = minus1 + 1;
+		minus2 = minus2 + 1;
+		if (sum1 == 5) {
+			*temp = -10000000000000;
+			return;
+		}
+		else if (sum2 == 5) {
+			*temp = 10000000000000;
+			return;
+		}
+		else {
+			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+		}
+		if (i != 0) {
+			j = BOARD_LENTH - 1;
+			minus1 = 1;
+			minus2 = 1;
+			sum1 = 0;
+			sum2 = 0;
+			while (i + j >= 0 && j < BOARD_LENTH && j + i < BOARD_LENTH) {
+				if (board[j][i + j] == EMPTY) {
+					if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+					if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+					//检查是否胜利
+					if (sum1 == 5) {
+						*temp = -10000000000000;
+						return;
+					}
+					else if (sum2 == 5) {
+						*temp = 10000000000000;
+						return;
+					}
+					sum1 = 0;
+					sum2 = 0;
+					minus1 = 0;
+					minus2 = 0;
+				}
+				else if (board[j][i + j] == 0) {
+					sum1 = sum1 + 1;
+					minus2 = minus2 + 1;
+					if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+
+					//检查是否胜利
+					if (sum1 == 5) {
+						*temp = -10000000000000;
+						return;
+					}
+					else if (sum2 == 5) {
+						*temp = 10000000000000;
+						return;
+					}
+					sum2 = 0;
+					minus2 = 1;
+				}
+				else {
+					minus1 = minus1 + 1;
+					sum2 = sum2 + 1;
+					if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+					//检查是否胜利
+					if (sum1 == 5) {
+						*temp = -10000000000000;
+						return;
+					}
+					else if (sum2 == 5) {
+						*temp = 10000000000000;
+						return;
+					}
+					sum1 = 0;
+					minus1 = 1;
+				}
+				j--;
+			}
+			//检查最后边界
+			minus1 = minus1 + 1;
+			minus2 = minus2 + 1;
+			if (sum1 == 5) {
+				*temp = -10000000000000;
+				return;
+			}
+			else if (sum2 == 5) {
+				*temp = 10000000000000;
+				return;
+			}
+			else {
+				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
+			}
+		}
+
+	}
+
 	* temp = score;
+	return;
 }
 int search(int ** Board, int user, int times,int* temp) {
 	int max_score = -2147483647,save;
@@ -296,7 +613,7 @@ int search(int ** Board, int user, int times,int* temp) {
 	//	}
 	//}
 		
-	if (times == 0) {
+	if (times ==1) {
 		//找到该层的极值
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
@@ -305,7 +622,7 @@ int search(int ** Board, int user, int times,int* temp) {
 					Board[i][j] = user;
 					evaluate(Board, user, i, j, &t);
 					if (t*(user*2-1) > max_score) {
-						max_score = t;
+						max_score = t * (user * 2 - 1);
 					}
 
 					//复原
@@ -314,7 +631,7 @@ int search(int ** Board, int user, int times,int* temp) {
 			}
 		}
 		
-		return max_score;
+		return max_score * (user * 2 - 1);
 	}
 	else {
 		//找到该层的极值
@@ -325,7 +642,7 @@ int search(int ** Board, int user, int times,int* temp) {
 					Board[i][j] = user;
 					save = search(Board, 1-user, times - 1, &t);
 					if (save*(user*2-1) > max_score) {
-						max_score = save;
+						max_score = save * (user * 2 - 1);
 					}
 					//复原
 					Board[i][j] = EMPTY;
@@ -333,7 +650,7 @@ int search(int ** Board, int user, int times,int* temp) {
 			}
 		}
 		
-		return max_score;
+		return max_score * (user * 2 - 1);
 	}
 	return 0;
 }
