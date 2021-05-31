@@ -2,12 +2,18 @@
 #include"algorithm.h"
 #include"node.h"
 #include"func.h"
+#include <time.h>
 void User1In(int** board,int* temp) {
 	GetFromKey(board, 0,temp);
 	
 }
 void User2In(int** board, int* temp) {
+	clock_t t;
+	t = clock();
 	GetFromAI(board,1,temp);
+	t = clock() - t;
+	std::cout <<"time is " <<t <<std::endl;
+	system("pause");
 	//GetFromKey(board, 1,temp);
 }
 //从键盘处输入
@@ -20,14 +26,18 @@ void GetFromKey(int** board,int user,int *temp){
 	}
 	evaluate(board, user, x-1, y-1, temp);
 	if (*temp > 10000000) {
+		printBoard(board);
 		win(1);
 	}
-	else if(*temp < -10000000)win(0);
+	else if (*temp < -10000000) {
+		printBoard(board); win(0);
+	}
 
 }
 void GetFromAI(int** Board, int user,int* temp) {
 	int x=0,y=0,t=*temp;
-	double max_score = -2139062143;
+	double max_score = -254252552;
+	int extre = max_score*(user*2-1);
 	//int saveBoard[17][17];
 	////保存
 	//for (int i = 0; i < BOARD_LENTH; i++) {
@@ -37,14 +47,15 @@ void GetFromAI(int** Board, int user,int* temp) {
 	//}
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
-			if (Board[i][j] == EMPTY) {
+			if (check(Board,i,j)) {
 				Board[i][j] = user;
-				int save =  search(Board, 1-user, DEPTH-1, &t);
-				if ((user * 2 - 1) *save > max_score) {
+				int save =  search(Board, 1-user, DEPTH-1, &t,(int)max_score);
+				if ((user * 2 - 1) *save > (user * 2 - 1) *max_score) {
 					x = i;
 					y = j;
-					max_score = (user * 2 - 1) * save;
+					max_score =  save;
 				}
+				
 				//复原
 				Board[i][j] = EMPTY;
 			}

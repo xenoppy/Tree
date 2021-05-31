@@ -603,7 +603,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	* temp = score;
 	return;
 }
-int search(int ** Board, int user, int times,int* temp) {
+int search(int ** Board, int user, int times,int* temp,int extre) {
 	int max_score = -2147483647,save;
 	//int saveBoard[17][17];
 	////保存
@@ -617,7 +617,7 @@ int search(int ** Board, int user, int times,int* temp) {
 		//找到该层的极值
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
-				if (Board[i][j] == EMPTY) {
+				if (check(Board, i, j)) {
 					int t = *temp;
 					Board[i][j] = user;
 					evaluate(Board, user, i, j, &t);
@@ -637,15 +637,19 @@ int search(int ** Board, int user, int times,int* temp) {
 		//找到该层的极值
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
-				if (Board[i][j] == EMPTY) {
+				if (check(Board,i,j)) {
 					int t = *temp;
 					Board[i][j] = user;
-					save = search(Board, 1-user, times - 1, &t);
+					save = search(Board, 1-user, times - 1, &t,max_score * (user * 2 - 1));
+					
 					if (save*(user*2-1) > max_score) {
 						max_score = save * (user * 2 - 1);
 					}
 					//复原
-					Board[i][j] = EMPTY;
+					Board[i][j] = EMPTY;	
+					if (max_score > extre * (2 * user - 1)) {
+						return extre;
+					}
 				}
 			}
 		}
