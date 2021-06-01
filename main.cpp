@@ -19,7 +19,7 @@ int main() {
 		
 		User1In(board,&temp);
 		printBoard(board);
-	//	cout << endl << temp << endl;
+		cout << endl << temp << endl;
 		User2In(board, &temp);
 
 		printBoard(board);

@@ -25,18 +25,18 @@ void GetFromKey(int** board,int user,int *temp){
 		board[x-1][y-1] = user;
 	}
 	evaluate(board, user, x-1, y-1, temp);
-	if (*temp > 10000000) {
+	if (*temp > 100000000) {
 		printBoard(board);
 		win(1);
 	}
-	else if (*temp < -10000000) {
+	else if (*temp < -100000000) {
 		printBoard(board); win(0);
 	}
 
 }
 void GetFromAI(int** Board, int user,int* temp) {
 	int x=0,y=0,t=*temp;
-	double max_score = -254252552;
+	double max_score = -INT_MAX;
 	int extre = max_score*(user*2-1);
 	//int saveBoard[17][17];
 	////±£´æ
@@ -49,6 +49,13 @@ void GetFromAI(int** Board, int user,int* temp) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (check(Board,i,j)) {
 				Board[i][j] = user;
+				int tempp = t;
+				evaluate(Board, user, 0, 0, &tempp);
+				if (abs(tempp) > 10000000) {
+					x = i;
+					y = j;
+					break;
+				}
 				int save =  search(Board, 1-user, DEPTH-1, &t,(int)max_score);
 				if ((user * 2 - 1) *save > (user * 2 - 1) *max_score) {
 					x = i;
@@ -64,8 +71,9 @@ void GetFromAI(int** Board, int user,int* temp) {
 	
 	Board[x][y] = user;
 	evaluate(Board, user, x, y, temp); 
-	if (*temp > 1000000) {
+	if (*temp > 100000000) {
 		win(1);
 	}
-	else if (*temp <- 1000000)win(0);
+	else if (*temp <- 100000000)win(0);
+
 }

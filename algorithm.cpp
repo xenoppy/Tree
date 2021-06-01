@@ -227,7 +227,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		sum2 = 0;
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (board[i][j] == EMPTY) {
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
@@ -263,7 +263,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			else {
 				minus1 = minus1 + 1;
 				sum2 = sum2 + 1;
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
 					*temp = -10000000000000;
@@ -288,7 +288,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			return;
 		}
 		else {
-			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 		}
 	}
@@ -301,7 +301,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		sum2 = 0;
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			if (board[i][j] == EMPTY) {
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
@@ -337,7 +337,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			else {
 				minus1 = minus1 + 1;
 				sum2 = sum2 + 1;
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
 					*temp = -10000000000000;
@@ -413,7 +413,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			else {
 				minus1 = minus1 + 1;
 				sum2 = sum2 + 1;
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
 					*temp = -10000000000000;
@@ -440,7 +440,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			return;
 		}
 		else {
-			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 		}
 	}
@@ -519,7 +519,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			return;
 		}
 		else {
-			if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+			if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 			if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 		}
 		if (i != 0) {
@@ -530,7 +530,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			sum2 = 0;
 			while (i + j >= 0 && j < BOARD_LENTH && j + i < BOARD_LENTH) {
 				if (board[j][i + j] == EMPTY) {
-					if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+					if (sum1 - minus1 > -1)score = score - 1.001 * a[sum1 - minus1];
 					if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 					//检查是否胜利
 					if (sum1 == 5) {
@@ -566,7 +566,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				else {
 					minus1 = minus1 + 1;
 					sum2 = sum2 + 1;
-					if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+					if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 					//检查是否胜利
 					if (sum1 == 5) {
 						*temp = -10000000000000;
@@ -593,7 +593,7 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				return;
 			}
 			else {
-				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
+				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 			}
 		}
@@ -612,7 +612,6 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 	//		saveBoard[i][j] = Board[i][j];
 	//	}
 	//}
-		
 	if (times ==1) {
 		//找到该层的极值
 		for (int i = 0; i < BOARD_LENTH; i++) {
@@ -641,7 +640,12 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 					int t = *temp;
 					Board[i][j] = user;
 					save = search(Board, 1-user, times - 1, &t,max_score * (user * 2 - 1));
-					
+					if (times == DEPTH - 1) {
+						if (abs(save) > 1000000) {
+							if (save * (user * 2 - 1) > 1000000 * (user * 2 - 1))return 100000000 * (user * 2 - 1);
+
+						}
+					}
 					if (save*(user*2-1) > max_score) {
 						max_score = save * (user * 2 - 1);
 					}

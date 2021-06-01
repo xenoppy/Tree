@@ -3,7 +3,7 @@
 #define EMPTY 2
 #define BLACK 1
 #define WHITE 0
-#define DEPTH 4
+#define DEPTH 3
 
 #include<vector>
 class Node {
