@@ -1,5 +1,6 @@
 #include<iostream>
 #include"algorithm.h"
+#include"kill.h"
 #include"func.h"
 #include"convention.h"
 void evaluate(int** board,int user,int x,int y,int* temp) {
@@ -614,12 +615,14 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 	//}
 
 
+	int t = *temp;
 		//ÕÒµ½¸Ã²ãµÄ¼«Öµ
+	KillSearch(Board, user, times + 4, &t, max_score * (user * 2 - 1));//ËãÉ±
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (check(Board, i, j)) {
 				//ÔÚi£¬j´¦Âä×Ó
-				int t = *temp;
+				t = *temp;
 				Board[i][j] = user;
 				if (times == 1) {
 					//ËÑË÷Ê÷µÖ´ïµ×²ã
@@ -631,14 +634,14 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 					Board[i][j] = EMPTY;
 				}
 				else {
-					//ËÑË÷Ê÷ÎªµÖ´ïµ×²ã
+					//ËÑË÷Ê÷Î´µÖ´ïµ×²ã
 					save = search(Board, 1 - user, times - 1, &t, max_score * (user * 2 - 1));
-					if (times == DEPTH - 1) {//°¢¶û·¨±´Ëþ¼ôÖ¦
+					/*if (times == DEPTH - 1) {//°¢¶û·¨±´Ëþ¼ôÖ¦
 						if (abs(save) > 1000000) {
 							if (save * (user * 2 - 1) > 1000000 * (user * 2 - 1))return 100000000 * (user * 2 - 1);
 
 						}
-					}
+					}*/
 					if (save * (user * 2 - 1) > max_score) {
 						max_score = save * (user * 2 - 1);
 					}
