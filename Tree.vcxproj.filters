@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="put_in.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -30,11 +27,14 @@
     <ClCompile Include="algorithm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="convention.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kill.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="node.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="doctest.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -47,7 +47,10 @@
     <ClInclude Include="algorithm.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MCTS.h">
+    <ClInclude Include="convention.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kill.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

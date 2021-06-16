@@ -144,15 +144,16 @@
     <ClCompile Include="algorithm.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="convention.cpp" />
     <ClCompile Include="put_in.cpp" />
+    <ClCompile Include="kill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm.h" />
     <ClInclude Include="doctest.h" />
     <ClInclude Include="func.h" />
-    <ClInclude Include="MCTS.h" />
-    <ClInclude Include="node.h" />
+    <ClInclude Include="convention.h" />
+    <ClInclude Include="kill.h" />
     <ClInclude Include="put_in.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

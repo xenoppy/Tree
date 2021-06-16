@@ -1,7 +1,7 @@
 #include<iostream>
 #include"algorithm.h"
 #include"func.h"
-#include"node.h"
+#include"convention.h"
 void evaluate(int** board,int user,int x,int y,int* temp) {
 	int sum1,sum2,minus1,minus2,score=0,a[6] = { 1,10,100,1000,1000000,10000000000000 };
 	////横向检查
@@ -612,27 +612,54 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 	//		saveBoard[i][j] = Board[i][j];
 	//	}
 	//}
-	if (times ==1) {
+
+
 		//找到该层的极值
-		for (int i = 0; i < BOARD_LENTH; i++) {
-			for (int j = 0; j < BOARD_LENTH; j++) {
-				if (check(Board, i, j)) {
-					int t = *temp;
-					Board[i][j] = user;
+	for (int i = 0; i < BOARD_LENTH; i++) {
+		for (int j = 0; j < BOARD_LENTH; j++) {
+			if (check(Board, i, j)) {
+				//在i，j处落子
+				int t = *temp;
+				Board[i][j] = user;
+				if (times == 1) {
+					//搜索树抵达底层
 					evaluate(Board, user, i, j, &t);
-					if (t*(user*2-1) > max_score) {
+					if (t * (user * 2 - 1) > max_score) {
 						max_score = t * (user * 2 - 1);
 					}
-
 					//复原
 					Board[i][j] = EMPTY;
 				}
+				else {
+					//搜索树为抵达底层
+					save = search(Board, 1 - user, times - 1, &t, max_score * (user * 2 - 1));
+					if (times == DEPTH - 1) {//阿尔法贝塔剪枝
+						if (abs(save) > 1000000) {
+							if (save * (user * 2 - 1) > 1000000 * (user * 2 - 1))return 100000000 * (user * 2 - 1);
+
+						}
+					}
+					if (save * (user * 2 - 1) > max_score) {
+						max_score = save * (user * 2 - 1);
+					}
+					//复原
+					Board[i][j] = EMPTY;
+					if (max_score > extre * (2 * user - 1)) {
+						return extre;
+					}
+				}
+
+
+
 			}
 		}
-		
-		return max_score * (user * 2 - 1);
 	}
-	else {
+
+	if (times == 1)return max_score * (user * 2 - 1);
+	else return max_score * (user * 2 - 1);
+	return 0;
+}
+	/*else {
 		//找到该层的极值
 		for (int i = 0; i < BOARD_LENTH; i++) {
 			for (int j = 0; j < BOARD_LENTH; j++) {
@@ -640,9 +667,9 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 					int t = *temp;
 					Board[i][j] = user;
 					save = search(Board, 1-user, times - 1, &t,max_score * (user * 2 - 1));
-					if (times == DEPTH - 1) {
-						if (abs(save) > 1000000) {
-							if (save * (user * 2 - 1) > 1000000 * (user * 2 - 1))return 100000000 * (user * 2 - 1);
+					if (times == DEPTH - 1) {//阿尔法贝塔剪枝
+						if (abs(save) > 10000000) {
+							if (save * (user * 2 - 1) > 10000000 * (user * 2 - 1))return 1000000000 * (user * 2 - 1);
 
 						}
 					}
@@ -659,6 +686,4 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 		}
 		
 		return max_score * (user * 2 - 1);
-	}
-	return 0;
-}
+	}*/

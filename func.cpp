@@ -1,4 +1,4 @@
-#include"node.h"
+#include"convention.h"
 #include"func.h"
 #include<Windows.h>
 #include<iostream>
@@ -106,10 +106,11 @@ void printBoard(int** board) {
 			case 0:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY |
 					FOREGROUND_RED);
-
+				//±äÉ«
 				std::cout << "¡ñ"; 
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY |
 					FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+				
 				break;
 
 			}
