@@ -147,6 +147,7 @@
     <ClCompile Include="convention.cpp" />
     <ClCompile Include="put_in.cpp" />
     <ClCompile Include="kill.cpp" />
+    <ClCompile Include="smartsearch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="convention.h" />
     <ClInclude Include="kill.h" />
     <ClInclude Include="put_in.h" />
+    <ClInclude Include="smartsearch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
