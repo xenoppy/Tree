@@ -16,13 +16,13 @@ public:
 	void NodePush(int x, int y) {
 		Nodevector.push_back(new node(x, y));
 	}
-	void sort(int user) {
+	void sort() {
 		for (std::vector<node*>::iterator i = Nodevector.begin(); i != Nodevector.end(); i++) {
 			int max = -MAXINT;
 			std::vector<node*>::iterator temp;
 			for (std::vector<node*>::iterator j = Nodevector.begin(); j != Nodevector.end(); j++) {
-				if ((*j)->score * (user * 2 - 1) > max) {
-					max = (*j)->score * (user * 2 - 1);
+				if ((*j)->score > max) {
+					max = (*j)->score ;
 					temp = j;
 				}
 			}

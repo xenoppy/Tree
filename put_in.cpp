@@ -1,5 +1,6 @@
 #include"put_in.h"
 #include"algorithm.h"
+#include"smartsearch.h"
 #include"convention.h"
 #include"func.h"
 #include <time.h>
@@ -35,6 +36,9 @@ void GetFromKey(int** board, int user, int* temp) {
 
 }
 void GetFromAI(int** Board, int user, int* temp) {
+	nodevector Nodevector;
+	Nodevector.initialize(Board,user);
+	Nodevector.sort();
 	int x = 0, y = 0, t = *temp;
 	double max_score = -INT_MAX;
 	int extre = max_score * (user * 2 - 1);
@@ -45,30 +49,29 @@ void GetFromAI(int** Board, int user, int* temp) {
 	//		saveBoard[i][j] = Board[i][j];
 	//	}
 	//}
-	for (int i = 0; i < BOARD_LENTH; i++) {
-		for (int j = 0; j < BOARD_LENTH; j++) {
-			if (check(Board, i, j)) {
-				Board[i][j] = user;
-				int tempp = t;
-				evaluate(Board, user, 0, 0, &tempp);
-				if (abs(tempp) > 10000000) {
-					x = i;
-					y = j;
-					break;
-				}
-				int save = search(Board, 1 - user, DEPTH - 1, &t, (int)max_score);
-				if ((user * 2 - 1) * save > (user * 2 - 1) * max_score) {
-					x = i;
-					y = j;
-					max_score = save;
-				}
-
-				//¸´Ô­
-				Board[i][j] = EMPTY;
+	for (std::vector<node*>::iterator i = Nodevector.Nodevector.begin(); i != Nodevector.Nodevector.end(); i++) {
+		if (check(Board, (*i)->x, (*i)->y)) {
+			Board[(*i)->x][(*i)->y] = user;
+			int tempp = t;
+			evaluate(Board, user, 0, 0, &tempp);
+			if (abs(tempp) > 10000000) {
+				x = (*i)->x;
+				y = (*i)->y;
+				break;
 			}
-		}
-	}
+			int save = search(Board, 1 - user, DEPTH - 1, &t, (int)max_score);
+			if ((user * 2 - 1) * save > (user * 2 - 1) * max_score) {
+				x = (*i)->x;
+				y = (*i)->y;
+				max_score = save;
+			}
 
+			//¸´Ô­
+			Board[(*i)->x][(*i)->y] = EMPTY;
+		}
+
+	}
+	Nodevector.end();
 	Board[x][y] = user;
 	evaluate(Board, user, x, y, temp);
 	if (*temp > 100000000000) {
