@@ -5,7 +5,8 @@
 #include"func.h"
 using namespace std;
 int main() {
-	int** board = InitializeBoard();//初始化棋盘
+	//初始化棋盘
+	int** board = InitializeBoard();
 	int temp = 0, whether_First;
 	//temp为对全局的评估分数
 	evaluate(board, 1, 0, 0, &temp);

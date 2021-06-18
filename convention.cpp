@@ -1,6 +1,7 @@
 #include"convention.h"
 #include<iostream>
 using namespace std;
+//≥ı ºªØ∆Â≈Ã
 int** InitializeBoard() {
 	int** a = (int**)malloc(sizeof(int*) * BOARD_LENTH);
 	for (int i = 0; i < BOARD_LENTH; i++) {
