@@ -58,10 +58,10 @@ void blackback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* 
 }
 void evaluate(int** board,int user,int x,int y,int* temp) {
 	int sum1,sum2,minus1,minus2,score=0,a[6] = { 1,10,100,1000,1000000,10000000000000 };
-	initialize(&sum1, &sum2, &minus1, &minus2);
+	
 	//横向
 	for (int i = 0; i < BOARD_LENTH; i++) {
-		
+		initialize(&sum1, &sum2, &minus1, &minus2);
 		for (int j = 0; j < BOARD_LENTH; j++) {
 			if (board[i][j] == EMPTY) {
 				empty(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
@@ -106,38 +106,20 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (checkwin(&sum1, &sum2, temp))return;
 				emptyback(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
 			}
-			else if (board[i][j] == 0) {
-				sum1 = sum1 + 1;
-				minus2 = minus2 + 1;
-				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
-
+			else if (board[i][j] == WHITE) {
+				white(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
 				//检查是否胜利
-				if (sum1 == 5) {
-					*temp = -10000000000000;
-					return;
-				}
-				else if (sum2 == 5) {
-					*temp = 10000000000000;
-					return;
-				}
-				sum2 = 0;
-				minus2 = 1;
+				if (checkwin(&sum1, &sum2, temp))return;
+				whiteback(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
+
 			}
 			else {
-				minus1 = minus1 + 1;
-				sum2 = sum2 + 1;
-				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
+				//黑棋				
+				black(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
 				//检查是否胜利
-				if (sum1 == 5) {
-					*temp = -10000000000000;
-					return;
-				}
-				else if (sum2 == 5) {
-					*temp = 10000000000000;
-					return;
-				}
-				sum1 = 0;
-				minus1 = 1;
+				if (checkwin(&sum1, &sum2, temp))return;
+				blackback(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
+
 			}
 		}
 		//抵达边界
