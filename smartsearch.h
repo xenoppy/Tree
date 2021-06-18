@@ -13,10 +13,13 @@ class nodevector{
 public:
 	std::vector<node*>Nodevector;
 	std::vector<node*>SortedNodevector;
+	void NodePush(int x, int y) {
+		Nodevector.push_back(new node(x, y));
+	}
 	void sort() {
 		for (std::vector<node*>::iterator i = Nodevector.begin(); i != Nodevector.end(); i++) {
 			int max = -MAXINT;
-			std::vector<node*>::iterator temp=i;
+			std::vector<node*>::iterator temp;
 			for (std::vector<node*>::iterator j = Nodevector.begin(); j != Nodevector.end(); j++) {
 				if ((*j)->score > max) {
 					max = (*j)->score ;
@@ -24,7 +27,6 @@ public:
 				}
 			}
 			SortedNodevector.push_back(new node((*temp)->x, (*temp)->y));
-			(*temp)->score = -MAXINT;
 		}
 	}
 	void initialize(int** Board,int user) {

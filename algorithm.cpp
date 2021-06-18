@@ -5,11 +5,7 @@
 #include"convention.h"
 void evaluate(int** board,int user,int x,int y,int* temp) {
 	int sum1,sum2,minus1,minus2,score=0,a[6] = { 1,10,100,1000,1000000,10000000000000 };
-	//README
-	//看上去有点重复的味道，也确实有股重复的味道，但这估值函数不太好改啊┭┮﹏┭┮
-	//大致思路：在目前方向的路径上进行搜索，设有一计数器记录当前颜色棋子的连续状况
-	//每遇到一个棋子开始对该色棋子进行计数，遇到空位或异色棋子重置计数器并将数据保存。
-	
+
 	//横向
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		minus1 = 1;
@@ -22,11 +18,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -1000000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 100000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -34,18 +30,18 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				minus1 = 0;
 				minus2 = 0;
 			}
-			else if (board[i][j] == WHITE) {
+			else if (board[i][j] == 0) {
 				sum1 = sum1 + 1;
 				minus2 = minus2 + 1;
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum2 = 0;
@@ -57,11 +53,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -71,11 +67,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		minus1 = minus1 + 1;
 		minus2 = minus2 + 1;
 		if (sum1 == 5) {
-			*temp = -10000000000000000;
+			*temp = -10000000000000;
 			return;
 		}
 		else if (sum2 == 5) {
-			*temp = 10000000000000000;
+			*temp = 10000000000000;
 			return;
 		}
 		else {
@@ -96,11 +92,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -115,11 +111,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum2 = 0;
@@ -131,11 +127,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -145,11 +141,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		minus1 = minus1 + 1;
 		minus2 = minus2 + 1;
 		if (sum1 == 5) {
-			*temp = -10000000000000000;
+			*temp = -10000000000000;
 			return;
 		}
 		else if (sum2 == 5) {
-			*temp = 10000000000000000;
+			*temp = 10000000000000;
 			return;
 		}
 		else {
@@ -172,11 +168,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -191,11 +187,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum2 = 0;
@@ -207,11 +203,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -223,11 +219,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		minus1 = minus1 + 1;
 		minus2 = minus2 + 1;
 		if (sum1 == 5) {
-			*temp = -10000000000000000;
+			*temp = -10000000000000;
 			return;
 		}
 		else if (sum2 == 5) {
-			*temp = 10000000000000000;
+			*temp = 10000000000000;
 			return;
 		}
 		else {
@@ -251,11 +247,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -270,11 +266,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum2 = 0;
@@ -286,11 +282,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 				if (sum1 - minus1 > -1)score = score - a[sum1 - minus1];
 				//检查是否胜利
 				if (sum1 == 5) {
-					*temp = -10000000000000000;
+					*temp = -10000000000000;
 					return;
 				}
 				else if (sum2 == 5) {
-					*temp = 10000000000000000;
+					*temp = 10000000000000;
 					return;
 				}
 				sum1 = 0;
@@ -302,11 +298,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 		minus1 = minus1 + 1;
 		minus2 = minus2 + 1;
 		if (sum1 == 5) {
-			*temp = -10000000000000000;
+			*temp = -10000000000000;
 			return;
 		}
 		else if (sum2 == 5) {
-			*temp = 10000000000000000;
+			*temp = 10000000000000;
 			return;
 		}
 		else {
@@ -325,11 +321,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 					if (sum2 - minus2 > -1)score = score + a[sum2 - minus2];
 					//检查是否胜利
 					if (sum1 == 5) {
-						*temp = -10000000000000000;
+						*temp = -10000000000000;
 						return;
 					}
 					else if (sum2 == 5) {
-						*temp = 10000000000000000;
+						*temp = 10000000000000;
 						return;
 					}
 					sum1 = 0;
@@ -344,11 +340,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 
 					//检查是否胜利
 					if (sum1 == 5) {
-						*temp = -10000000000000000;
+						*temp = -10000000000000;
 						return;
 					}
 					else if (sum2 == 5) {
-						*temp = 10000000000000000;
+						*temp = 10000000000000;
 						return;
 					}
 					sum2 = 0;
@@ -360,11 +356,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 					if (sum1 - minus1 > -1)score = score - 1.1 * a[sum1 - minus1];
 					//检查是否胜利
 					if (sum1 == 5) {
-						*temp = -10000000000000000;
+						*temp = -10000000000000;
 						return;
 					}
 					else if (sum2 == 5) {
-						*temp = 10000000000000000;
+						*temp = 10000000000000;
 						return;
 					}
 					sum1 = 0;
@@ -376,11 +372,11 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 			minus1 = minus1 + 1;
 			minus2 = minus2 + 1;
 			if (sum1 == 5) {
-				*temp = -10000000000000000;
+				*temp = -10000000000000;
 				return;
 			}
 			else if (sum2 == 5) {
-				*temp = 10000000000000000;
+				*temp = 10000000000000;
 				return;
 			}
 			else {
@@ -396,7 +392,14 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 }
 int search(int ** Board, int user, int times,int* temp,int extre) {
 	int max_score = -2147483647,save;
-	
+	//int saveBoard[17][17];
+	////保存
+	//for (int i= 0; i < BOARD_LENTH; i++) {
+	//	for (int j = 0; j < BOARD_LENTH; j++) {
+	//		saveBoard[i][j] = Board[i][j];
+	//	}
+	//}
+
 
 	int t = *temp;
 		//找到该层的极值

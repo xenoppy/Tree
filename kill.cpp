@@ -8,41 +8,39 @@ int KillSearch(int** Board, int user, int times, int* temp, int extre) {
 	int max_score = -2147483647, save;
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		for (int j = 0; j < BOARD_LENTH; j++) {
-			if (check(Board, i, j)) {
-				if (checkKill(Board, user, i, j)) {
-					//ÔÚi£¬j´¦Âä×Ó
-					int t = *temp;
-					Board[i][j] = user;
-					if (times == 1) {
-						//ËÑË÷Ê÷µÖ´ïµ×²ã
-						evaluate(Board, user, i, j, &t);
-						if (t * (user * 2 - 1) > max_score) {
-							max_score = t * (user * 2 - 1);
-						}
-						//¸´Ô­
-						Board[i][j] = EMPTY;
+			if (check(Board, i, j)&&checkKill(Board,user,i,j)) {
+				//ÔÚi£¬j´¦Âä×Ó
+				int t = *temp;
+				Board[i][j] = user;
+				if (times == 1) {
+					//ËÑË÷Ê÷µÖ´ïµ×²ã
+					evaluate(Board, user, i, j, &t);
+					if (t * (user * 2 - 1) > max_score) {
+						max_score = t * (user * 2 - 1);
 					}
-					else {
-						//ËÑË÷Ê÷Î´µÖ´ïµ×²ã
-						save = KillSearch(Board, 1 - user, times - 1, &t, max_score * (user * 2 - 1));
-
-						if (save * (user * 2 - 1) > max_score) {
-							max_score = save * (user * 2 - 1);
-						}
-						//¸´Ô­
-						Board[i][j] = EMPTY;
-						if (max_score > extre * (2 * user - 1)) {
-							return extre;
-						}
+					//¸´Ô­
+					Board[i][j] = EMPTY;
+				}
+				else {
+					//ËÑË÷Ê÷Î´µÖ´ïµ×²ã
+					save = KillSearch(Board, 1 - user, times - 1, &t, max_score * (user * 2 - 1));
+					
+					if (save * (user * 2 - 1) > max_score) {
+						max_score = save * (user * 2 - 1);
+					}
+					//¸´Ô­
+					Board[i][j] = EMPTY;
+					if (max_score > extre * (2 * user - 1)) {
+						return extre;
 					}
 				}
-				
 			}
 		}
 	}
 
-	return max_score * (user * 2 - 1);
-	
+	if (times == 1)return max_score * (user * 2 - 1);
+	else return max_score * (user * 2 - 1);
+	return 0;
 }
 bool checkKill(int** board, int user, int x, int y) {
 	int sum1, sum2, minus1, minus2, score = 0, a[6] = { 1,10,100,1000,1000000,10000000000000 };

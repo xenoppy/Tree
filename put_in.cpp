@@ -42,13 +42,7 @@ void GetFromAI(int** Board, int user, int* temp) {
 	int x = 0, y = 0, t = *temp;
 	double max_score = -INT_MAX;
 	int extre = max_score * (user * 2 - 1);
-	//int saveBoard[17][17];
-	////±£´æ
-	//for (int i = 0; i < BOARD_LENTH; i++) {
-	//	for (int j = 0; j < BOARD_LENTH; j++) {
-	//		saveBoard[i][j] = Board[i][j];
-	//	}
-	//}
+
 	for (std::vector<node*>::iterator i = Nodevector.Nodevector.begin(); i != Nodevector.Nodevector.end(); i++) {
 		if (check(Board, (*i)->x, (*i)->y)) {
 			Board[(*i)->x][(*i)->y] = user;
