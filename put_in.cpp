@@ -36,7 +36,7 @@ void GetFromKey(int** board, int user, int* temp) {
 	if (board[x - 1][y - 1] == EMPTY) {
 		board[x - 1][y - 1] = user;
 	}
-	evaluate(board, user, x - 1, y - 1, temp);
+	evaluate(board,  temp);
 	checkwin(temp, board);
 
 }
@@ -56,7 +56,7 @@ void GetFromAI(int** Board, int user, int* temp) {
 		if (check(Board, (*i)->x, (*i)->y)) {
 			Board[(*i)->x][(*i)->y] = user;
 			int tempp = t;
-			evaluate(Board, user, 0, 0, &tempp);
+			evaluate(Board,  &tempp);
 			if (abs(tempp) > 10000000) {
 				x = (*i)->x;
 				y = (*i)->y;
@@ -79,6 +79,6 @@ void GetFromAI(int** Board, int user, int* temp) {
 	//Âä×Ó
 	Board[x][y] = user;
 	//¹ÀÖµ
-	evaluate(Board, user, x, y, temp);
+	evaluate(Board,  temp);
 	checkwin(temp, Board);
 }

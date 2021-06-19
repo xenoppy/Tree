@@ -4,15 +4,16 @@
 #include"func.h"
 #include"convention.h"
 //小工具组
-bool checkwin(int* sum1,int* sum2,int* temp) {
-if (*sum1 == 5) {
-	*temp = -10000000000000;
-	return true;
-}
-else if (*sum2 == 5) {
-	*temp = 10000000000000;
-	return true;
+bool checkwin(int* sum1, int* sum2, int* temp) {
+	if (*sum1 == 5) {
+		*temp = -10000000000000;
+		return true;
 	}
+	else if (*sum2 == 5) {
+		*temp = 10000000000000;
+		return true;
+	}
+	return false;
 }
 bool edge(int* sum1, int* sum2, int* minus1, int* minus2, int* score,int* temp,int* a) {
 	(*minus1)++;
@@ -34,8 +35,10 @@ void initialize(int* sum1, int* sum2, int* minus1, int* minus2) {
 
 }
 void empty(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
-	if (*sum1 - *minus1 > -1)*score = *score - 1.1 * a[sum1 - minus1];
-	if (*sum2 - *minus2 > -1)*score = *score + a[sum2 - minus2];
+	if (*sum1 - *minus1 > -1) {
+		*score = *score - 1.1 * a[*sum1 - *minus1];
+	}
+	if (*sum2 - *minus2 > -1)*score = *score + a[*sum2 - *minus2];
 
 }
 void emptyback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
@@ -48,7 +51,7 @@ void emptyback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* 
 void white(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
 	*sum1 = *sum1 + 1;
 	*minus2 = *minus2 + 1;
-	if (*sum2 - *minus2 > -1)*score = *score + a[sum2 - minus2];
+	if (*sum2 - *minus2 > -1)*score = *score + a[*sum2 - *minus2];
 }
 void whiteback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
 
@@ -58,7 +61,7 @@ void whiteback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* 
 void black(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
 	*minus1 = *minus1 + 1;
 	*sum2 = *sum2 + 1;
-	if (*sum1 - *minus1 > -1)*score = *score - 1.1 * a[sum1 - minus1];
+	if (*sum1 - *minus1 > -1)*score = *score - 1.1 * a[*sum1 - *minus1];
 
 }
 void blackback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* temp, int* a) {
@@ -68,8 +71,8 @@ void blackback(int* sum1, int* sum2, int* minus1, int* minus2, int* score, int* 
 	*minus1 = 1;
 }
 //估值函数
-void evaluate(int** board,int user,int x,int y,int* temp) {
-	int sum1,sum2,minus1,minus2,score=0,a[6] = { 1,10,100,1000,1000000,10000000000000 };	
+void evaluate(int** board,int* temp) {
+	int sum1,sum2,minus1,minus2,score=0,a[6] = {1,10,100,1000,1000000,10000000000000 };	
 	//横向
 	for (int i = 0; i < BOARD_LENTH; i++) {
 		initialize(&sum1, &sum2, &minus1, &minus2);
@@ -152,10 +155,10 @@ void evaluate(int** board,int user,int x,int y,int* temp) {
 	}
 	//左上右下
 	//该情况需要用两个while去遍历所有路径
-	//第一部分
 	for (int i = 1 - BOARD_LENTH; i <= BOARD_LENTH - 1; i++) {
 		initialize(&sum1, &sum2, &minus1, &minus2);
 		int j = 0;
+		//第一部分
 		while (i + j >= 0 && j < BOARD_LENTH && j + i < BOARD_LENTH) {
 			if (board[j][i + j] == EMPTY) {
 				empty(&sum1, &sum2, &minus1, &minus2, &score, temp, a);
@@ -232,7 +235,7 @@ int search(int ** Board, int user, int times,int* temp,int extre) {
 				//搜索树抵达底层
 				if (times == 1) {
 					
-					evaluate(Board, user, i, j, &t);
+					evaluate(Board, &t);
 					if (t * (user * 2 - 1) > max_score) {
 						max_score = t * (user * 2 - 1);
 					}

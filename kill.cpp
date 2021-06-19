@@ -37,7 +37,7 @@ int KillSearch(int** Board, int user,int time, int* temp, int extre) {
 	if (not killornot) {
 		//ËÑË÷Ê÷µÖ´ïµ×²ã
 		int t;
-		evaluate(Board, user, 0, 0, &t);
+		evaluate(Board,  &t);
 		return t;
 	}
 	return 0;
